@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">EasyLex</string>
+    <string name="add_flashcard">Add flashcard</string>
+    <string name="word">Word</string>
+    <string name="definition">Definition</string>
+    <string name="translation">Translation</string>
+    <string name="score">Score</string>
+    <string name="delete_flashcard">Delete flashcard</string>
+    <string name="search">Search</string>
+    <string name="reset_search">Reset search</string>
+    <string name="ascending">Ascending</string>
+    <string name="descending">Descending</string>
+    <string name="date">Date</string>
+    <string name="sort">Sort</string>
+    <string name="flashcard_deleted">Flashcard deleted</string>
+    <string name="undo">Undo</string>
 </resources>

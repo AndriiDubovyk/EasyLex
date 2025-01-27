@@ -5,10 +5,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
+import com.andriidubovyk.easylex.presentation.screen.flashacards.FlashcardsScreen
 import com.andriidubovyk.easylex.ui.theme.EasyLexTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -19,12 +17,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             EasyLexTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Text(
-                        text = "Test",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                FlashcardsScreen(Modifier.fillMaxSize())
             }
         }
     }

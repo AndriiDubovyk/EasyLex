@@ -5,6 +5,8 @@ import androidx.room.Room
 import com.andriidubovyk.easylex.data.data_source.FlashcardDatabase
 import com.andriidubovyk.easylex.data.repository.FlashcardRepositoryImpl
 import com.andriidubovyk.easylex.domain.repository.FlashcardRepository
+import com.andriidubovyk.easylex.domain.use_case.FlashcardUseCases
+import com.andriidubovyk.easylex.domain.use_case.GetFlashcards
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -28,5 +30,13 @@ object AppModule {
     @Singleton
     fun provideFlashcardRepository(db: FlashcardDatabase): FlashcardRepository {
         return FlashcardRepositoryImpl(db.flashcardDao)
+    }
+
+    @Provides
+    @Singleton
+    fun provideFlashcardUseCases(repository: FlashcardRepository): FlashcardUseCases {
+        return FlashcardUseCases(
+            getFlashcards = GetFlashcards(repository),
+        )
     }
 }
