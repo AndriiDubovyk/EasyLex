@@ -63,52 +63,46 @@ class FlashcardsViewModel @Inject constructor(
             .launchIn(viewModelScope)
     }
 
-    private fun processDeleteFlashcard(flashcard: Flashcard) {
-        viewModelScope.launch {
-            // TODO: delete flashcard
-            recentlyDeletedFlashcard = flashcard
-        }
+    private fun processDeleteFlashcard(flashcard: Flashcard) = viewModelScope.launch {
+        // TODO: delete flashcard
+        recentlyDeletedFlashcard = flashcard
     }
 
-    private fun processChangeSearchText(searchText: String) {
+    private fun processChangeSearchText(searchText: String) = viewModelScope.launch {
         setSearch(searchText)
     }
 
-    private fun processResetSearch() {
+    private fun processResetSearch() = viewModelScope.launch {
         setSearch("")
     }
 
     private fun setSearch(searchText: String) {
-        viewModelScope.launch {
-            _state.update {
-                it.copy(
-                    searchText = searchText
-                )
-            }
-            getFlashcards(
-                order = state.value.flashcardOrder,
+        _state.update {
+            it.copy(
                 searchText = searchText
             )
         }
+        getFlashcards(
+            order = state.value.flashcardOrder,
+            searchText = searchText
+        )
     }
 
-    private fun processRestoreFlashcard() {
-        viewModelScope.launch {
-            // TODO: restore flashcard
-            recentlyDeletedFlashcard = null
-        }
+    private fun processRestoreFlashcard() = viewModelScope.launch {
+        // TODO: restore flashcard
+        recentlyDeletedFlashcard = null
     }
 
-    private fun processOrder(order: FlashcardOrder) {
+    private fun processOrder(order: FlashcardOrder) = viewModelScope.launch {
         if (state.value.flashcards::class == order::class &&
             state.value.flashcardOrder.orderType == order.orderType
         ) {
-            return // if we have same order we must change nothing
+            return@launch // if we have same order we must change nothing
         }
         getFlashcards(order)
     }
 
-    private fun processToggleOrderSection() {
+    private fun processToggleOrderSection() = viewModelScope.launch {
         _state.value = state.value.copy(
             isOrderSectionVisible = !state.value.isOrderSectionVisible
         )
