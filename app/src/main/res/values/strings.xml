@@ -14,4 +14,5 @@
     <string name="sort">Sort</string>
     <string name="flashcard_deleted">Flashcard deleted</string>
     <string name="undo">Undo</string>
+    <string name="save_flashcard">Save flashcard</string>
 </resources>

@@ -42,10 +42,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.andriidubovyk.easylex.R
 import com.andriidubovyk.easylex.presentation.component.FlashcardComponent
 import com.andriidubovyk.easylex.presentation.component.FlashcardSearchBar
 import com.andriidubovyk.easylex.presentation.component.OrderSection
+import com.andriidubovyk.easylex.presentation.navigation.Screen
 import com.andriidubovyk.easylex.presentation.screen.flashacards.view_model.FlashcardsEvent
 import com.andriidubovyk.easylex.presentation.screen.flashacards.view_model.FlashcardsViewModel
 import kotlinx.coroutines.launch
@@ -53,6 +55,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun FlashcardsScreen(
     modifier: Modifier = Modifier,
+    navController: NavController,
     viewModel: FlashcardsViewModel = hiltViewModel()
 ) {
     val state by viewModel.state.collectAsState()
@@ -66,7 +69,7 @@ fun FlashcardsScreen(
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
-                    // TODO: add/edit flashcard navigation
+                    navController.navigate(Screen.ADD_EDIT_FLASHCARDS.route)
                 },
                 containerColor = MaterialTheme.colorScheme.primary,
                 shape = CircleShape,
@@ -144,7 +147,7 @@ fun FlashcardsScreen(
                         FlashcardComponent(
                             flashcard = flashcard,
                             onClick = {
-                                // TODO: navigate to specific flashcard
+                                navController.navigate("${Screen.ADD_EDIT_FLASHCARDS.route}?flashcardId=${flashcard.id}")
                             },
                             onDeleteClick = {
                                 viewModel.onEvent(FlashcardsEvent.DeleteFlashcard(flashcard))

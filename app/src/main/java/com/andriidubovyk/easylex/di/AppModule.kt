@@ -5,7 +5,9 @@ import androidx.room.Room
 import com.andriidubovyk.easylex.data.data_source.FlashcardDatabase
 import com.andriidubovyk.easylex.data.repository.FlashcardRepositoryImpl
 import com.andriidubovyk.easylex.domain.repository.FlashcardRepository
+import com.andriidubovyk.easylex.domain.use_case.AddFlashcard
 import com.andriidubovyk.easylex.domain.use_case.FlashcardUseCases
+import com.andriidubovyk.easylex.domain.use_case.GetFlashcard
 import com.andriidubovyk.easylex.domain.use_case.GetFlashcards
 import dagger.Module
 import dagger.Provides
@@ -37,6 +39,8 @@ object AppModule {
     fun provideFlashcardUseCases(repository: FlashcardRepository): FlashcardUseCases {
         return FlashcardUseCases(
             getFlashcards = GetFlashcards(repository),
+            getFlashcard = GetFlashcard(repository),
+            addFlashcard = AddFlashcard(repository),
         )
     }
 }

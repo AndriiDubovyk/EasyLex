@@ -12,3 +12,5 @@ data class Flashcard(
     val score: Int = 0,
     val timestamp: Long = System.currentTimeMillis()
 )
+
+class InvalidFlashcardException(message: String) : Exception(message)
