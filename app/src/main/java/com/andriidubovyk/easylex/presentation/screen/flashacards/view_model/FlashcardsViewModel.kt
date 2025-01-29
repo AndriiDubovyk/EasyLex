@@ -89,7 +89,7 @@ class FlashcardsViewModel @Inject constructor(
     }
 
     private fun processRestoreFlashcard() = viewModelScope.launch {
-        // TODO: restore flashcard
+        flashcardUseCases.addFlashcard(recentlyDeletedFlashcard ?: return@launch)
         recentlyDeletedFlashcard = null
     }
 

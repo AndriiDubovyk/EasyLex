@@ -3,10 +3,10 @@ package com.andriidubovyk.easylex.presentation.navigation
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.andriidubovyk.easylex.presentation.screen.add_edit_flashcard.AddEditFlashcardScreen
 import com.andriidubovyk.easylex.presentation.screen.flashacards.FlashcardsScreen
@@ -14,9 +14,9 @@ import com.andriidubovyk.easylex.presentation.screen.flashacards.FlashcardsScree
 @Composable
 fun NavigationHost(
     modifier: Modifier = Modifier,
+    navController: NavHostController,
     startDestination: String = Screen.FLASHCARDS.route
 ) {
-    val navController = rememberNavController()
     NavHost(
         navController = navController,
         startDestination = startDestination,
@@ -38,6 +38,15 @@ fun NavigationHost(
             )
         ) {
             AddEditFlashcardScreen(Modifier.fillMaxSize(), navController = navController)
+        }
+        composable(route = Screen.STUDY.route) {
+            // TODO:
+        }
+        composable(route = Screen.ACCOUNT.route) {
+            // TODO:
+        }
+        composable(route = Screen.SETTINGS.route) {
+            // TODO:
         }
     }
 }

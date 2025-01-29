@@ -1,5 +1,6 @@
 package com.andriidubovyk.easylex.presentation.screen.flashacards
 
+import android.annotation.SuppressLint
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -52,6 +53,7 @@ import com.andriidubovyk.easylex.presentation.screen.flashacards.view_model.Flas
 import com.andriidubovyk.easylex.presentation.screen.flashacards.view_model.FlashcardsViewModel
 import kotlinx.coroutines.launch
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter") // padding already used in previous scaffold
 @Composable
 fun FlashcardsScreen(
     modifier: Modifier = Modifier,
@@ -81,10 +83,7 @@ fun FlashcardsScreen(
             }
         }
     ) {
-        Column(
-            modifier = Modifier
-                .padding(it)
-        ) {
+        Column {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()

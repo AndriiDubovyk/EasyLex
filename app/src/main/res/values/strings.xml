@@ -15,4 +15,8 @@
     <string name="flashcard_deleted">Flashcard deleted</string>
     <string name="undo">Undo</string>
     <string name="save_flashcard">Save flashcard</string>
+    <string name="flashcards">Flashcards</string>
+    <string name="study">Study</string>
+    <string name="account">Account</string>
+    <string name="settings">Settings</string>
 </resources>
