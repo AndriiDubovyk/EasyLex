@@ -6,6 +6,7 @@ import com.andriidubovyk.easylex.data.data_source.FlashcardDatabase
 import com.andriidubovyk.easylex.data.repository.FlashcardRepositoryImpl
 import com.andriidubovyk.easylex.domain.repository.FlashcardRepository
 import com.andriidubovyk.easylex.domain.use_case.AddFlashcard
+import com.andriidubovyk.easylex.domain.use_case.DeleteFlashcard
 import com.andriidubovyk.easylex.domain.use_case.FlashcardUseCases
 import com.andriidubovyk.easylex.domain.use_case.GetFlashcard
 import com.andriidubovyk.easylex.domain.use_case.GetFlashcards
@@ -41,6 +42,7 @@ object AppModule {
             getFlashcards = GetFlashcards(repository),
             getFlashcard = GetFlashcard(repository),
             addFlashcard = AddFlashcard(repository),
+            deleteFlashcard = DeleteFlashcard(repository)
         )
     }
 }

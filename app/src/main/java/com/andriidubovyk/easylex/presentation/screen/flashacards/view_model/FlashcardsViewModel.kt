@@ -64,7 +64,7 @@ class FlashcardsViewModel @Inject constructor(
     }
 
     private fun processDeleteFlashcard(flashcard: Flashcard) = viewModelScope.launch {
-        // TODO: delete flashcard
+        flashcardUseCases.deleteFlashcard(flashcard)
         recentlyDeletedFlashcard = flashcard
     }
 
