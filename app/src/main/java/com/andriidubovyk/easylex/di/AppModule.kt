@@ -10,6 +10,8 @@ import com.andriidubovyk.easylex.domain.use_case.DeleteFlashcard
 import com.andriidubovyk.easylex.domain.use_case.FlashcardUseCases
 import com.andriidubovyk.easylex.domain.use_case.GetFlashcard
 import com.andriidubovyk.easylex.domain.use_case.GetFlashcards
+import com.andriidubovyk.easylex.domain.use_case.GetLowestScoreFlashcards
+import com.andriidubovyk.easylex.domain.use_case.GetTotalScore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -42,7 +44,9 @@ object AppModule {
             getFlashcards = GetFlashcards(repository),
             getFlashcard = GetFlashcard(repository),
             addFlashcard = AddFlashcard(repository),
-            deleteFlashcard = DeleteFlashcard(repository)
+            deleteFlashcard = DeleteFlashcard(repository),
+            getTotalScore = GetTotalScore(repository),
+            getLowestScoreFlashcards = GetLowestScoreFlashcards(repository)
         )
     }
 }

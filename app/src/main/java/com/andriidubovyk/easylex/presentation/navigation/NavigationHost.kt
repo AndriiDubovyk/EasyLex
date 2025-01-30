@@ -10,6 +10,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.andriidubovyk.easylex.presentation.screen.add_edit_flashcard.AddEditFlashcardScreen
 import com.andriidubovyk.easylex.presentation.screen.flashacards.FlashcardsScreen
+import com.andriidubovyk.easylex.presentation.screen.practice_flashcards.PracticeFlashcardScreen
+import com.andriidubovyk.easylex.presentation.screen.study.StudyScreen
 
 @Composable
 fun NavigationHost(
@@ -40,7 +42,21 @@ fun NavigationHost(
             AddEditFlashcardScreen(Modifier.fillMaxSize(), navController = navController)
         }
         composable(route = Screen.STUDY.route) {
-            // TODO:
+            StudyScreen(Modifier.fillMaxSize(), navController)
+        }
+        composable(
+            route = Screen.PRACTICE_FLASHCARD.route +
+                    "?flashcardId={flashcardId}",
+            arguments = listOf(
+                navArgument(
+                    name = "flashcardId"
+                ) {
+                    type = NavType.IntType
+                    defaultValue = -1
+                }
+            )
+        ) {
+            PracticeFlashcardScreen(Modifier.fillMaxSize(), navController = navController)
         }
         composable(route = Screen.ACCOUNT.route) {
             // TODO:
