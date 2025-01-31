@@ -3,7 +3,7 @@ package com.andriidubovyk.easylex.presentation.screen.flashacards.view_model
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.andriidubovyk.easylex.domain.model.Flashcard
-import com.andriidubovyk.easylex.domain.use_case.FlashcardUseCases
+import com.andriidubovyk.easylex.domain.use_case.flashcard.FlashcardUseCases
 import com.andriidubovyk.easylex.domain.utils.FlashcardOrder
 import com.andriidubovyk.easylex.domain.utils.OrderType
 import dagger.hilt.android.lifecycle.HiltViewModel

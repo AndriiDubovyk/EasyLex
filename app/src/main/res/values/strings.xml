@@ -23,11 +23,19 @@
     <string name="start">Start</string>
     <string name="pronounce_the_word">Pronounce The Word</string>
     <string name="no_words_to_study">No Words To Study</string>
-    <string name="flahscard_practice_type_hint">You can type your answer if you want</string>
+    <string name="flashcard_practice_type_hint">You can type your answer if you want</string>
     <string name="bad">Bad</string>
     <string name="ok">OK</string>
     <string name="good">Good</string>
     <string name="show_answer">Show Answer</string>
     <string name="next">Next</string>
     <string name="unable_to_pronounce_the_word">Unable to pronounce the word</string>
+    <string name="dont_forget_to_learn_new_words">Don\'t forget to learn new words</string>
+    <string name="saved_notification_hour">saved_notification_hour</string>
+    <string name="saved_notification_minute">saved_notification_minute</string>
+    <string name="saved_notification_enabled">saved_notification_enabled</string>
+    <string name="preference_file_key">app_sp</string>
+    <string name="save">Save</string>
+    <string name="notifications_time">Notifications Time</string>
+    <string name="enable_notifications">Enable Notifications</string>
 </resources>

@@ -2,7 +2,7 @@ package com.andriidubovyk.easylex.presentation.screen.study.view_model
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.andriidubovyk.easylex.domain.use_case.FlashcardUseCases
+import com.andriidubovyk.easylex.domain.use_case.flashcard.FlashcardUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

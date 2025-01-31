@@ -1,4 +1,4 @@
-package com.andriidubovyk.easylex.domain.use_case
+package com.andriidubovyk.easylex.domain.use_case.flashcard
 
 data class FlashcardUseCases(
     val getFlashcards: GetFlashcards,

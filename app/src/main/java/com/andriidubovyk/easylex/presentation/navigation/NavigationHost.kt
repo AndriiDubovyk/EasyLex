@@ -11,6 +11,7 @@ import androidx.navigation.navArgument
 import com.andriidubovyk.easylex.presentation.screen.add_edit_flashcard.AddEditFlashcardScreen
 import com.andriidubovyk.easylex.presentation.screen.flashacards.FlashcardsScreen
 import com.andriidubovyk.easylex.presentation.screen.practice_flashcards.PracticeFlashcardScreen
+import com.andriidubovyk.easylex.presentation.screen.settings.SettingsScreen
 import com.andriidubovyk.easylex.presentation.screen.study.StudyScreen
 
 @Composable
@@ -62,7 +63,7 @@ fun NavigationHost(
             // TODO:
         }
         composable(route = Screen.SETTINGS.route) {
-            // TODO:
+            SettingsScreen(Modifier.fillMaxSize())
         }
     }
 }
