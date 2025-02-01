@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.andriidubovyk.easylex.presentation.component.bottom_nav_bar.BottomNavigationPanel
 import com.andriidubovyk.easylex.presentation.navigation.NavigationHost
+import com.andriidubovyk.easylex.presentation.screen.settings.utils.NotificationReceiver
 import com.andriidubovyk.easylex.ui.theme.EasyLexTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -20,6 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        NotificationReceiver.createNotificationChannel(this)
         enableEdgeToEdge()
         setContent {
             EasyLexTheme {

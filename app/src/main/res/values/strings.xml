@@ -38,4 +38,6 @@
     <string name="save">Save</string>
     <string name="notifications_time">Notifications Time</string>
     <string name="enable_notifications">Enable Notifications</string>
+    <string name="notification_channel_name">EasyLex notifications</string>
+    <string name="notification_channel_description">A reminder to learn new words</string>
 </resources>
