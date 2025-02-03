@@ -59,6 +59,8 @@ dependencies {
     implementation(libs.androidx.room.common)
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.material.icons.extended)
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
     ksp(libs.room.compiler)
     ksp(libs.hilt.android.compiler)
     testImplementation(libs.junit)

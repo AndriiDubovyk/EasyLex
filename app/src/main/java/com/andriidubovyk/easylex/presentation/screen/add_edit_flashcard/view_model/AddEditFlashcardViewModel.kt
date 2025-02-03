@@ -3,12 +3,16 @@ package com.andriidubovyk.easylex.presentation.screen.add_edit_flashcard.view_mo
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.andriidubovyk.easylex.common.Resource
 import com.andriidubovyk.easylex.domain.model.Flashcard
 import com.andriidubovyk.easylex.domain.model.InvalidFlashcardException
 import com.andriidubovyk.easylex.domain.use_case.flashcard.FlashcardUseCases
+import com.andriidubovyk.easylex.domain.use_case.word_detail.WordDetailUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -16,6 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class AddEditFlashcardViewModel @Inject constructor(
     private val flashcardUseCases: FlashcardUseCases,
+    private val wordDetailUseCases: WordDetailUseCases,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
     private val _state = MutableStateFlow(AddEditFlashcardState())
@@ -33,6 +38,12 @@ class AddEditFlashcardViewModel @Inject constructor(
             is AddEditFlashcardEvent.UpdateDefinition -> processUpdateDefinition(event.definition)
             is AddEditFlashcardEvent.UpdateTranslation -> processUpdateTranslation(event.translation)
             is AddEditFlashcardEvent.SaveFlashcard -> processSaveFlashcard()
+            is AddEditFlashcardEvent.GetDefinitionsFromDictionary -> processGetDefinitionsFromDictionary()
+            is AddEditFlashcardEvent.CloseDefinitionsDialog -> processCloseDefinitionsDialog()
+            is AddEditFlashcardEvent.OnResetSnackbar -> processOnResetSnackbar()
+            is AddEditFlashcardEvent.SelectDefinitionFromDialog ->
+                processSelectDefinitionFromDialog(event.value)
+
         }
     }
 
@@ -54,34 +65,72 @@ class AddEditFlashcardViewModel @Inject constructor(
         }
     }
 
-    private fun processSaveFlashcard() {
-        viewModelScope.launch {
-            try {
-                flashcardUseCases.addFlashcard(
-                    Flashcard(
-                        id = state.value.currentFlashcardId,
-                        word = state.value.word,
-                        definition = state.value.definition.takeIf { it.isNotBlank() },
-                        translation = state.value.translation.takeIf { it.isNotBlank() },
-                        timestamp = System.currentTimeMillis(),
-                        score = if (state.value.currentFlashcardId == -1) {
-                            0
-                        } else {
-                            flashcardUseCases.getFlashcard(
-                                state.value.currentFlashcardId ?: -1
-                            )?.score ?: 0
-                        }
-                    )
+    private fun processSaveFlashcard() = viewModelScope.launch {
+        try {
+            flashcardUseCases.addFlashcard(
+                Flashcard(
+                    id = state.value.currentFlashcardId,
+                    word = state.value.word,
+                    definition = state.value.definition.takeIf { it.isNotBlank() },
+                    translation = state.value.translation.takeIf { it.isNotBlank() },
+                    timestamp = System.currentTimeMillis(),
+                    score = if (state.value.currentFlashcardId == -1) {
+                        0
+                    } else {
+                        flashcardUseCases.getFlashcard(
+                            state.value.currentFlashcardId ?: -1
+                        )?.score ?: 0
+                    }
                 )
-                _state.update { it.copy(isFlashcardSaved = true) }
-            } catch (e: InvalidFlashcardException) {
-                _state.update {
-                    it.copy(
-                        snackbarMessage = e.message ?: "Couldn't save this flashcard"
-                    )
-                }
+            )
+            _state.update { it.copy(isFlashcardSaved = true) }
+        } catch (e: InvalidFlashcardException) {
+            _state.update {
+                it.copy(
+                    snackbarMessage = e.message ?: "Couldn't save this flashcard"
+                )
             }
         }
+    }
+
+    private fun processOnResetSnackbar() = viewModelScope.launch {
+        _state.update { it.copy(snackbarMessage = null) }
+    }
+
+    private fun processGetDefinitionsFromDictionary() {
+        wordDetailUseCases.getWordDetail(state.value.word).onEach { result ->
+            when (result) {
+                is Resource.Error -> {
+                    _state.update {
+                        it.copy(
+                            snackbarMessage = result.message ?: "Couldn't load this word definition"
+                        )
+                    }
+                }
+
+                is Resource.Success -> {
+                    val definitions = result.data?.definitions
+                    definitions?.let { definitionList ->
+                        _state.update {
+                            it.copy(dialogDefinitions = definitionList)
+                        }
+                    }
+                }
+
+                is Resource.Loading -> {}
+            }
+        }.launchIn(viewModelScope)
+    }
+
+    private fun processCloseDefinitionsDialog() = viewModelScope.launch {
+        _state.update {
+            it.copy(dialogDefinitions = null)
+        }
+    }
+
+    private fun processSelectDefinitionFromDialog(definition: String) = viewModelScope.launch {
+        _state.update { it.copy(definition = definition) }
+        processCloseDefinitionsDialog()
     }
 
     private fun initFlashcard(id: Int) = viewModelScope.launch {

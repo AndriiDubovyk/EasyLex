@@ -6,5 +6,6 @@ data class AddEditFlashcardState(
     val translation: String = "",
     val currentFlashcardId: Int? = null,
     val isFlashcardSaved: Boolean = false,
-    val snackbarMessage: String? = null
+    val snackbarMessage: String? = null,
+    val dialogDefinitions: List<String>? = null
 )

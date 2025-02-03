@@ -5,4 +5,8 @@ sealed interface AddEditFlashcardEvent {
     data class UpdateDefinition(val definition: String) : AddEditFlashcardEvent
     data class UpdateTranslation(val translation: String) : AddEditFlashcardEvent
     data object SaveFlashcard : AddEditFlashcardEvent
+    data object GetDefinitionsFromDictionary : AddEditFlashcardEvent
+    data class SelectDefinitionFromDialog(val value: String) : AddEditFlashcardEvent
+    data object CloseDefinitionsDialog : AddEditFlashcardEvent
+    data object OnResetSnackbar : AddEditFlashcardEvent
 }

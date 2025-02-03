@@ -1,12 +1,16 @@
 package com.andriidubovyk.easylex.presentation.screen.add_edit_flashcard
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Save
+import androidx.compose.material3.Button
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -14,6 +18,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -26,8 +31,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.andriidubovyk.easylex.R
 import com.andriidubovyk.easylex.presentation.component.FlashcardFieldWithLabel
+import com.andriidubovyk.easylex.presentation.component.SelectDefinitionDialog
 import com.andriidubovyk.easylex.presentation.screen.add_edit_flashcard.view_model.AddEditFlashcardEvent
 import com.andriidubovyk.easylex.presentation.screen.add_edit_flashcard.view_model.AddEditFlashcardViewModel
+import kotlinx.coroutines.delay
 
 @Composable
 fun AddEditFlashcardScreen(
@@ -45,6 +52,8 @@ fun AddEditFlashcardScreen(
 
     LaunchedEffect(state.snackbarMessage) {
         state.snackbarMessage?.let { snackbarHostState.showSnackbar(it) }
+        delay(1000) // Prevent spam with same message
+        viewModel.onEvent(AddEditFlashcardEvent.OnResetSnackbar)
     }
 
     Scaffold(
@@ -63,10 +72,10 @@ fun AddEditFlashcardScreen(
                 )
             }
         }
-    ) {
+    ) { paddingValues ->
         LazyColumn(
             modifier = modifier
-                .padding(it)
+                .padding(paddingValues)
                 .fillMaxSize()
                 .background(MaterialTheme.colorScheme.surface),
         ) {
@@ -92,6 +101,23 @@ fun AddEditFlashcardScreen(
                     onValueChange = { viewModel.onEvent(AddEditFlashcardEvent.UpdateDefinition(it)) },
                     lines = 3,
                 )
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(fieldsPadding),
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Button(
+                        onClick = {
+                            viewModel.onEvent(AddEditFlashcardEvent.GetDefinitionsFromDictionary)
+                        }
+                    ) {
+                        Text(
+                            text = stringResource(R.string.dictionary),
+                            style = MaterialTheme.typography.bodyLarge,
+                        )
+                    }
+                }
                 HorizontalDivider()
                 FlashcardFieldWithLabel(
                     modifier = Modifier.padding(fieldsPadding),
@@ -101,6 +127,17 @@ fun AddEditFlashcardScreen(
                 )
             }
         }
+    }
 
+    state.dialogDefinitions?.let { definitions ->
+        SelectDefinitionDialog(
+            definitions = definitions,
+            onSelect = {
+                viewModel.onEvent(AddEditFlashcardEvent.SelectDefinitionFromDialog(it))
+            },
+            onCancel = {
+                viewModel.onEvent(AddEditFlashcardEvent.CloseDefinitionsDialog)
+            }
+        )
     }
 }
