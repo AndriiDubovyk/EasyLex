@@ -14,8 +14,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.andriidubovyk.easylex.R
-import com.andriidubovyk.easylex.presentation.component.AccountViewProfile
-import com.andriidubovyk.easylex.presentation.component.AccountViewSignIn
+import com.andriidubovyk.easylex.presentation.component.account_view.AccountViewProfile
+import com.andriidubovyk.easylex.presentation.component.account_view.AccountViewSignIn
 import com.andriidubovyk.easylex.presentation.screen.account.view_model.AccountEvent
 import com.andriidubovyk.easylex.presentation.screen.account.view_model.AccountState
 import com.andriidubovyk.easylex.presentation.screen.account.view_model.AccountViewModel

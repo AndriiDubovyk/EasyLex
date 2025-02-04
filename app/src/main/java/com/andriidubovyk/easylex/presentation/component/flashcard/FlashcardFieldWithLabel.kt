@@ -1,4 +1,4 @@
-package com.andriidubovyk.easylex.presentation.component
+package com.andriidubovyk.easylex.presentation.component.flashcard
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,6 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.andriidubovyk.easylex.presentation.component.DefaultTextField
 
 @Composable
 fun FlashcardFieldWithLabel(

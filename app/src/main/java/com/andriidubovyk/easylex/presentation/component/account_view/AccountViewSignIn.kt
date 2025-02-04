@@ -1,4 +1,4 @@
-package com.andriidubovyk.easylex.presentation.component
+package com.andriidubovyk.easylex.presentation.component.account_view
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding

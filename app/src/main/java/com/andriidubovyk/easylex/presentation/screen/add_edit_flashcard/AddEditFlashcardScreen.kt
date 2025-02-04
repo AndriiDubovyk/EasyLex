@@ -30,8 +30,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.andriidubovyk.easylex.R
-import com.andriidubovyk.easylex.presentation.component.FlashcardFieldWithLabel
 import com.andriidubovyk.easylex.presentation.component.SelectDefinitionDialog
+import com.andriidubovyk.easylex.presentation.component.flashcard.FlashcardFieldWithLabel
 import com.andriidubovyk.easylex.presentation.screen.add_edit_flashcard.view_model.AddEditFlashcardEvent
 import com.andriidubovyk.easylex.presentation.screen.add_edit_flashcard.view_model.AddEditFlashcardViewModel
 import kotlinx.coroutines.delay

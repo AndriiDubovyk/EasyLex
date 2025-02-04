@@ -1,4 +1,4 @@
-package com.andriidubovyk.easylex.presentation.component
+package com.andriidubovyk.easylex.presentation.component.account_view
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.andriidubovyk.easylex.R
 import com.andriidubovyk.easylex.domain.model.UserData
+import com.andriidubovyk.easylex.presentation.component.ConfirmDialog
 
 @Composable
 fun AccountViewProfile(

@@ -45,9 +45,9 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.andriidubovyk.easylex.R
-import com.andriidubovyk.easylex.presentation.component.FlashcardComponent
-import com.andriidubovyk.easylex.presentation.component.FlashcardSearchBar
 import com.andriidubovyk.easylex.presentation.component.OrderSection
+import com.andriidubovyk.easylex.presentation.component.flashcard.FlashcardComponent
+import com.andriidubovyk.easylex.presentation.component.flashcard.FlashcardSearchBar
 import com.andriidubovyk.easylex.presentation.navigation.Screen
 import com.andriidubovyk.easylex.presentation.screen.flashacards.view_model.FlashcardsEvent
 import com.andriidubovyk.easylex.presentation.screen.flashacards.view_model.FlashcardsViewModel

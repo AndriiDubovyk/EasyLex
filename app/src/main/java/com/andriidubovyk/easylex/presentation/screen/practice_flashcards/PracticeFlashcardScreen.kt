@@ -18,8 +18,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.andriidubovyk.easylex.R
-import com.andriidubovyk.easylex.presentation.component.FlashcardDisplay
 import com.andriidubovyk.easylex.presentation.component.PracticeButton
+import com.andriidubovyk.easylex.presentation.component.flashcard.FlashcardDisplay
 import com.andriidubovyk.easylex.presentation.navigation.Screen
 import com.andriidubovyk.easylex.presentation.screen.practice_flashcards.view_model.PracticeFlashcardEvent
 import com.andriidubovyk.easylex.presentation.screen.practice_flashcards.view_model.PracticeFlashcardsViewModel

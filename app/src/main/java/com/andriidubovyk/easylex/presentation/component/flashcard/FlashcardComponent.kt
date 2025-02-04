@@ -1,4 +1,4 @@
-package com.andriidubovyk.easylex.presentation.component
+package com.andriidubovyk.easylex.presentation.component.flashcard
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,6 +19,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.andriidubovyk.easylex.R
 import com.andriidubovyk.easylex.domain.model.Flashcard
+import com.andriidubovyk.easylex.presentation.component.DescriptionText
 
 @Composable
 fun FlashcardComponent(

@@ -1,4 +1,4 @@
-package com.andriidubovyk.easylex.presentation.component
+package com.andriidubovyk.easylex.presentation.component.flashcard
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -26,6 +26,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.andriidubovyk.easylex.R
 import com.andriidubovyk.easylex.domain.model.Flashcard
+import com.andriidubovyk.easylex.presentation.component.DefaultTextField
+import com.andriidubovyk.easylex.presentation.component.DescriptionText
 
 @Composable
 fun FlashcardDisplay(
