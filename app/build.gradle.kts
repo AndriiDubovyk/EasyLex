@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.google.devtools.ksp)
     alias(libs.plugins.google.dagger.hilt.android)
+    alias(libs.plugins.google.gms.google.services)
 }
 
 android {
@@ -61,6 +62,9 @@ dependencies {
     implementation(libs.androidx.material.icons.extended)
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
+    implementation(libs.coil.compose)
+    implementation(libs.firebase.auth)
+    implementation(libs.play.services.auth)
     ksp(libs.room.compiler)
     ksp(libs.hilt.android.compiler)
     testImplementation(libs.junit)

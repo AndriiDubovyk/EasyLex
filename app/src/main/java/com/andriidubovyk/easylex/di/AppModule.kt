@@ -5,12 +5,20 @@ import androidx.room.Room
 import com.andriidubovyk.easylex.common.DictionaryApiConstants
 import com.andriidubovyk.easylex.data.data_source.FlashcardDatabase
 import com.andriidubovyk.easylex.data.remote.DictionaryApi
+import com.andriidubovyk.easylex.data.repository.AccountRepositoryImpl
 import com.andriidubovyk.easylex.data.repository.FlashcardRepositoryImpl
 import com.andriidubovyk.easylex.data.repository.NotificationRepositoryImpl
 import com.andriidubovyk.easylex.data.repository.WordDetailRepositoryImpl
+import com.andriidubovyk.easylex.domain.repository.AccountRepository
 import com.andriidubovyk.easylex.domain.repository.FlashcardRepository
 import com.andriidubovyk.easylex.domain.repository.NotificationRepository
 import com.andriidubovyk.easylex.domain.repository.WordDetailRepository
+import com.andriidubovyk.easylex.domain.use_case.account.AccountUseCases
+import com.andriidubovyk.easylex.domain.use_case.account.BackupFlashcards
+import com.andriidubovyk.easylex.domain.use_case.account.GetCurrentUserData
+import com.andriidubovyk.easylex.domain.use_case.account.RestoreFlashcards
+import com.andriidubovyk.easylex.domain.use_case.account.SignIn
+import com.andriidubovyk.easylex.domain.use_case.account.SignOut
 import com.andriidubovyk.easylex.domain.use_case.flashcard.AddFlashcard
 import com.andriidubovyk.easylex.domain.use_case.flashcard.DeleteFlashcard
 import com.andriidubovyk.easylex.domain.use_case.flashcard.FlashcardUseCases
@@ -76,6 +84,12 @@ object AppModule {
 
     @Provides
     @Singleton
+    fun provideAccountRepository(app: Application): AccountRepository {
+        return AccountRepositoryImpl(app)
+    }
+
+    @Provides
+    @Singleton
     fun provideFlashcardUseCases(repository: FlashcardRepository): FlashcardUseCases {
         return FlashcardUseCases(
             getFlashcards = GetFlashcards(repository),
@@ -103,6 +117,21 @@ object AppModule {
     fun provideWordDetailUseCases(repository: WordDetailRepository): WordDetailUseCases {
         return WordDetailUseCases(
             getWordDetail = GetWordDetail(repository)
+        )
+    }
+
+    @Provides
+    @Singleton
+    fun provideAccountUseCases(
+        accountRepository: AccountRepository,
+        flashcardRepository: FlashcardRepository
+    ): AccountUseCases {
+        return AccountUseCases(
+            signOut = SignOut(accountRepository),
+            getCurrentUserData = GetCurrentUserData(accountRepository),
+            signIn = SignIn(accountRepository),
+            backupFlashcards = BackupFlashcards(accountRepository, flashcardRepository),
+            restoreFlashcards = RestoreFlashcards(accountRepository, flashcardRepository)
         )
     }
 }

@@ -42,4 +42,15 @@
     <string name="notification_channel_description">A reminder to learn new words</string>
     <string name="select_definition">Select Definition</string>
     <string name="dictionary">Dictionary</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
+    <string name="sign_in">Sign In</string>
+    <string name="signed_out">Signed out</string>
+    <string name="profile_picture">Profile picture</string>
+    <string name="sign_out">Sign out</string>
+    <string name="backup_flashcards_to_the_cloud">Backup flashcards to the cloud</string>
+    <string name="restore_flashcards_from_the_cloud">Restore flashcards from the cloud</string>
+    <string name="before_backup_message">Are you sure you want to back up your local flashcards? You can lose your flashcards in the cloud.</string>
+    <string name="before_restore_message">Are you sure you want to recover flash cards from the cloud? You may lose local flashcards.</string>
+    <string name="web_client_id" translatable="false">815545019366-nfgjn8fblodth93vv2e9jg9tmbfijgkf.apps.googleusercontent.com</string>
 </resources>
