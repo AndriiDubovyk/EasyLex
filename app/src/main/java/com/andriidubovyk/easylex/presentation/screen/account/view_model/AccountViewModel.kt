@@ -35,6 +35,7 @@ class AccountViewModel @Inject constructor(
             is AccountEvent.BackupFlashcardsToCloud -> processBackupFlashcardsToCloud()
             is AccountEvent.RestoreFlashcardsFromCloud -> processRestoreFlashcardsFromCloud()
             is AccountEvent.SignInWithGoogleIdToken -> processSignInWithGoogleIdToken(event.googleIdToken)
+            is AccountEvent.ResetSignInClick -> processResetSignInClick()
         }
     }
 
@@ -55,10 +56,14 @@ class AccountViewModel @Inject constructor(
     private fun processSignInClick() = viewModelScope.launch {
         if (state.value !is AccountState.SignIn) return@launch
         _state.update {
-            val state = it as AccountState.SignIn
-            state.copy(
-                isSignInClicked = true
-            )
+            AccountState.SignIn(isSignInClicked = true)
+        }
+    }
+
+    private fun processResetSignInClick() = viewModelScope.launch {
+        if (state.value !is AccountState.SignIn) return@launch
+        _state.update {
+            AccountState.SignIn(isSignInClicked = false)
         }
     }
 

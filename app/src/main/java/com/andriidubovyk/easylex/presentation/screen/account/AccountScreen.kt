@@ -1,7 +1,6 @@
 package com.andriidubovyk.easylex.presentation.screen.account
 
 import android.app.Activity.RESULT_OK
-import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -13,13 +12,12 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.andriidubovyk.easylex.R
 import com.andriidubovyk.easylex.presentation.component.account_view.AccountViewProfile
 import com.andriidubovyk.easylex.presentation.component.account_view.AccountViewSignIn
+import com.andriidubovyk.easylex.presentation.screen.account.utiils.getBeginSignInRequest
 import com.andriidubovyk.easylex.presentation.screen.account.view_model.AccountEvent
 import com.andriidubovyk.easylex.presentation.screen.account.view_model.AccountState
 import com.andriidubovyk.easylex.presentation.screen.account.view_model.AccountViewModel
-import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.identity.Identity
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
@@ -43,6 +41,7 @@ fun AccountScreen(modifier: Modifier = Modifier, viewModel: AccountViewModel = h
                     viewModel.onEvent(AccountEvent.SignInWithGoogleIdToken(googleIdToken))
                 }
             }
+            viewModel.onEvent(AccountEvent.ResetSignInClick)
         }
     )
 
@@ -54,24 +53,15 @@ fun AccountScreen(modifier: Modifier = Modifier, viewModel: AccountViewModel = h
             val signInState = state as AccountState.SignIn
             LaunchedEffect(signInState.isSignInClicked) {
                 if (signInState.isSignInClicked) {
-                    val signInRequest = BeginSignInRequest.builder()
-                        .setGoogleIdTokenRequestOptions(
-                            BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
-                                .setSupported(true)
-                                .setFilterByAuthorizedAccounts(false)
-                                .setServerClientId(context.getString(R.string.web_client_id))
-                                .build()
-                        )
-                        .build()
+                    val signInRequest = context.getBeginSignInRequest()
                     val result = try {
                         oneTapClient.beginSignIn(signInRequest).await()
                     } catch (e: Exception) {
-                        Log.d("TAG", "Exception: $e")
                         null
                     }
-                    val signInIntentSender =
-                        result?.pendingIntent?.intentSender ?: return@LaunchedEffect
-                    launcher.launch(IntentSenderRequest.Builder(signInIntentSender).build())
+                    result?.pendingIntent?.intentSender?.let {
+                        launcher.launch(IntentSenderRequest.Builder(it).build())
+                    }
                 }
             }
             AccountViewSignIn(
