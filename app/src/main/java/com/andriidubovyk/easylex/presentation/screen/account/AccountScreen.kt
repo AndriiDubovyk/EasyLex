@@ -33,20 +33,17 @@ fun AccountScreen(modifier: Modifier = Modifier, viewModel: AccountViewModel = h
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.StartIntentSenderForResult(),
         onResult = { result ->
-            if (result.resultCode == RESULT_OK) {
-                scope.launch {
+            scope.launch {
+                if (result.resultCode == RESULT_OK) {
                     val credential =
                         oneTapClient.getSignInCredentialFromIntent(result.data ?: return@launch)
                     val googleIdToken = credential.googleIdToken
                     viewModel.onEvent(AccountEvent.SignInWithGoogleIdToken(googleIdToken))
                 }
+                viewModel.onEvent(AccountEvent.ResetSignInClick)
             }
-            viewModel.onEvent(AccountEvent.ResetSignInClick)
         }
     )
-
-
-
 
     when (state) {
         is AccountState.SignIn -> {
@@ -77,6 +74,8 @@ fun AccountScreen(modifier: Modifier = Modifier, viewModel: AccountViewModel = h
                 onSignOut = { viewModel.onEvent(AccountEvent.SignOut) },
                 onBackupFlashcards = { viewModel.onEvent(AccountEvent.BackupFlashcardsToCloud) },
                 onRestoreFlashcards = { viewModel.onEvent(AccountEvent.RestoreFlashcardsFromCloud) },
+                onResetSnackbar = { viewModel.onEvent(AccountEvent.OnResetSnackbar) },
+                snackbarMessage = profileState.snackbarMessage,
                 userData = profileState.userData
             )
         }

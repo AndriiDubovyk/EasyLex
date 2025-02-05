@@ -36,6 +36,7 @@ class AccountViewModel @Inject constructor(
             is AccountEvent.RestoreFlashcardsFromCloud -> processRestoreFlashcardsFromCloud()
             is AccountEvent.SignInWithGoogleIdToken -> processSignInWithGoogleIdToken(event.googleIdToken)
             is AccountEvent.ResetSignInClick -> processResetSignInClick()
+            is AccountEvent.OnResetSnackbar -> processOnResetSnackbar()
         }
     }
 
@@ -56,22 +57,42 @@ class AccountViewModel @Inject constructor(
     private fun processSignInClick() = viewModelScope.launch {
         if (state.value !is AccountState.SignIn) return@launch
         _state.update {
-            AccountState.SignIn(isSignInClicked = true)
+            val signInState = it as AccountState.SignIn
+            signInState.copy(isSignInClicked = true)
         }
     }
 
     private fun processResetSignInClick() = viewModelScope.launch {
         if (state.value !is AccountState.SignIn) return@launch
         _state.update {
-            AccountState.SignIn(isSignInClicked = false)
+            val signInState = it as AccountState.SignIn
+            signInState.copy(isSignInClicked = false)
         }
     }
 
     private fun processBackupFlashcardsToCloud() = viewModelScope.launch {
-        useCases.backupFlashcards()
+        val backupResult = useCases.backupFlashcards()
+        if (state.value !is AccountState.Profile) return@launch
+        _state.update {
+            val profileState = it as AccountState.Profile
+            profileState.copy(snackbarMessage = backupResult.message)
+        }
     }
 
     private fun processRestoreFlashcardsFromCloud() = viewModelScope.launch {
-        useCases.restoreFlashcards()
+        val restoreBackupResult = useCases.restoreFlashcards()
+        if (state.value !is AccountState.Profile) return@launch
+        _state.update {
+            val profileState = it as AccountState.Profile
+            profileState.copy(snackbarMessage = restoreBackupResult.message)
+        }
+    }
+
+    private fun processOnResetSnackbar() = viewModelScope.launch {
+        if (state.value !is AccountState.Profile) return@launch
+        _state.update {
+            val profileState = it as AccountState.Profile
+            profileState.copy(snackbarMessage = null)
+        }
     }
 }

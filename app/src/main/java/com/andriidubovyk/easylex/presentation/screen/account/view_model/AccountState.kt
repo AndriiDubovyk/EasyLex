@@ -9,5 +9,6 @@ sealed interface AccountState {
         val isSignInClicked: Boolean = false
     ) : AccountState
 
-    data class Profile(val userData: UserData? = null) : AccountState
+    data class Profile(val userData: UserData? = null, val snackbarMessage: String? = null) :
+        AccountState
 }

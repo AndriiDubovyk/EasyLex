@@ -7,4 +7,5 @@ sealed interface AccountEvent {
     data class SignInWithGoogleIdToken(val googleIdToken: String?) : AccountEvent
     data object BackupFlashcardsToCloud : AccountEvent
     data object RestoreFlashcardsFromCloud : AccountEvent
+    data object OnResetSnackbar : AccountEvent
 }

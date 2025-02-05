@@ -15,9 +15,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.BasicAlertDialog
-import androidx.compose.material3.Divider
 import androidx.compose.material3.DividerDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -57,7 +57,7 @@ fun ConfirmDialog(
             ) {
                 Text(text = text, style = MaterialTheme.typography.bodyLarge)
             }
-            Divider()
+            HorizontalDivider()
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -76,7 +76,7 @@ fun ConfirmDialog(
                         fontWeight = FontWeight.SemiBold
                     )
                 }
-                Divider(
+                HorizontalDivider(
                     modifier = Modifier
                         .fillMaxHeight()
                         .width(1.dp)
