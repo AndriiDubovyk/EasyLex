@@ -9,6 +9,7 @@ import com.andriidubovyk.easylex.domain.model.Time
 import com.andriidubovyk.easylex.domain.repository.NotificationRepository
 import com.andriidubovyk.easylex.presentation.screen.settings.utils.NotificationReceiver
 import java.util.Calendar
+import androidx.core.content.edit
 
 class NotificationRepositoryImpl(private val context: Context) : NotificationRepository {
     private val sharedPref = context.getSharedPreferences(
@@ -24,12 +25,11 @@ class NotificationRepositoryImpl(private val context: Context) : NotificationRep
     )
 
     override fun scheduleNotifications(time: Time) {
-        sharedPref
-            .edit()
-            .putBoolean(context.getString(R.string.saved_notification_enabled), true)
-            .putInt(context.getString(R.string.saved_notification_hour), time.hour)
-            .putInt(context.getString(R.string.saved_notification_minute), time.minute)
-            .apply()
+        sharedPref.edit {
+            putBoolean(context.getString(R.string.saved_notification_enabled), true)
+            putInt(context.getString(R.string.saved_notification_hour), time.hour)
+            putInt(context.getString(R.string.saved_notification_minute), time.minute)
+        }
         alarmManager.cancel(alarmPendingIntent)
         val calendar = Calendar.getInstance().apply {
             set(Calendar.HOUR_OF_DAY, time.hour)
@@ -44,8 +44,9 @@ class NotificationRepositoryImpl(private val context: Context) : NotificationRep
     }
 
     override fun cancelNotification() {
-        sharedPref.edit().putBoolean(context.getString(R.string.saved_notification_enabled), false)
-            .apply()
+        sharedPref.edit {
+            putBoolean(context.getString(R.string.saved_notification_enabled), false)
+        }
         alarmManager.cancel(alarmPendingIntent)
     }
 
