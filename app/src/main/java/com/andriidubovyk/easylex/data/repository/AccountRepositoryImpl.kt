@@ -8,7 +8,6 @@ import com.andriidubovyk.easylex.domain.repository.AccountRepository
 import com.google.android.gms.auth.api.identity.Identity
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.tasks.await
@@ -73,7 +72,24 @@ class AccountRepositoryImpl(
     }
 
     override suspend fun setCloudFlashcards(flashcards: List<Flashcard>) {
-        TODO("Not yet implemented")
+        val userId = getCurrentUserData()?.userId ?: return
+        val collectionRef = Firebase.firestore
+            .collection("users").document(userId)
+            .collection("flashcards")
+
+        // Delete old docs
+        val oldDocs = collectionRef.get().await()
+        val deleteBatch = Firebase.firestore.batch()
+        oldDocs.forEach { deleteBatch.delete(it.reference) }
+        deleteBatch.commit().await()
+
+        // Write new docs
+        val saveBatch = Firebase.firestore.batch()
+        flashcards.forEach { flashcard ->
+            val docRef = collectionRef.document(flashcard.id.toString())
+            saveBatch.set(docRef, flashcard)
+        }
+        saveBatch.commit().await()
     }
 
 }
