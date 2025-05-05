@@ -8,6 +8,8 @@ import com.andriidubovyk.easylex.domain.repository.AccountRepository
 import com.google.android.gms.auth.api.identity.Identity
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.tasks.await
 
@@ -60,10 +62,18 @@ class AccountRepositoryImpl(
     }
 
     override suspend fun getFlashcardsFromCloud(): List<Flashcard> {
-        TODO("Not yet implemented")
+        val userId = getCurrentUserData()?.userId ?: return emptyList()
+        val snapshot = Firebase.firestore
+            .collection("users").document(userId)
+            .collection("flashcards")
+            .get()
+            .await()
+
+        return snapshot.documents.mapNotNull { it.toObject(Flashcard::class.java) }
     }
 
     override suspend fun setCloudFlashcards(flashcards: List<Flashcard>) {
         TODO("Not yet implemented")
     }
+
 }

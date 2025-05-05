@@ -9,6 +9,11 @@ class RestoreFlashcards(
 ) {
 
     suspend operator fun invoke() {
-        TODO("Not yet implemented")
+        val cloudFlashcards = accountRepository.getFlashcardsFromCloud()
+        if (cloudFlashcards.isEmpty()) return
+        flashcardRepository.deleteAllFlashcards()
+        cloudFlashcards.forEach {
+            flashcardRepository.insertFlashcard(it)
+        }
     }
 }

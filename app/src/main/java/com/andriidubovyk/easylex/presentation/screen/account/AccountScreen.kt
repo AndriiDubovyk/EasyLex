@@ -66,7 +66,6 @@ fun AccountScreen(modifier: Modifier = Modifier, viewModel: AccountViewModel = h
                     val result = try {
                         oneTapClient.beginSignIn(signInRequest).await()
                     } catch (e: Exception) {
-                        Log.d("TAG", "Exception: $e")
                         null
                     }
                     val signInIntentSender =

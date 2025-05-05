@@ -121,14 +121,20 @@ fun AccountViewProfile(
     if (isBackupDataDialogOpened) {
         ConfirmDialog(
             text = stringResource(R.string.before_backup_message),
-            onConfirm = { onBackupFlashcards() },
+            onConfirm = {
+                onBackupFlashcards()
+                isBackupDataDialogOpened = false
+            },
             onCancel = { isBackupDataDialogOpened = false }
         )
     }
     if (isRestoreDataDialogOpened) {
         ConfirmDialog(
             text = stringResource(R.string.before_restore_message),
-            onConfirm = { onRestoreFlashcards() },
+            onConfirm = {
+                onRestoreFlashcards()
+                isRestoreDataDialogOpened = false
+            },
             onCancel = { isRestoreDataDialogOpened = false }
         )
     }
